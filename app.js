@@ -27,7 +27,19 @@ alterarTexto('p', 'Escolha um número entre 1 e 10');
 function verificarChute(){
     //value = serve para pegar o valor daquele input.
     let chute = document.querySelector('input').value;
-    console.log(chute == numeroSecreto);
+    if(chute == numeroSecreto){
+        alterarTexto('h1', 'VOCÊ ACERTOU!');
+        alterarTexto('p', 'Você acertou o número secreto!');
+    }
+    else{
+        alterarTexto('h1', 'ERROU!');
+        if(chute > numeroSecreto){
+            alterarTexto('p', 'O número é menor que o chute');
+        }
+        else{
+            alterarTexto('p', 'O número é maior que o chute');
+        }
+    }
 }
 
 function gerarNumeroAleatorio() {
