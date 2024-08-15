@@ -14,23 +14,42 @@ paragrafo.innerHTML = 'Escolha um número entre 1 e 10';
 //Aqui as funções são até mais fáceis. Nem preciso informar o tipo do parâmetro
 
 let numeroSecreto = gerarNumeroAleatorio();
-console.log(numeroSecreto);
+let tentativas;
+
+iniciarJogo();
+exibirMensagemInicial();
 
 function alterarTexto(tag, texto){
     let campo = document.querySelector(tag);
     campo.innerHTML = texto;
 }
 
-alterarTexto('h1', 'Jogo do número secreto');
-alterarTexto('p', 'Escolha um número entre 1 e 10');
+function iniciarJogo(){
+    numeroSecreto = gerarNumeroAleatorio();
+    tentativas = 0;
+    console.log(numeroSecreto);
+}
+
+function exibirMensagemInicial(){
+    alterarTexto('h1', 'Jogo do número secreto');
+    alterarTexto('p', 'Escolha um número entre 1 e 10');
+    alterarTexto('h2', `Tentativas: ${tentativas}`);
+}
+
 
 function verificarChute(){
     //value = serve para pegar o valor daquele input.
+    tentativas ++;
+    alterarTexto('h2', `Tentativas: ${tentativas}`);
+
     let chute = document.querySelector('input').value;
     if(chute == numeroSecreto){
         alterarTexto('h1', 'VOCÊ ACERTOU!');
         alterarTexto('p', 'Você acertou o número secreto!');
+
+        document.getElementById('reiniciar').removeAttribute('disabled');
     }
+
     else{
         alterarTexto('h1', 'ERROU!');
         if(chute > numeroSecreto){
@@ -39,10 +58,23 @@ function verificarChute(){
         else{
             alterarTexto('p', 'O número é maior que o chute');
         }
+        limparCampo();
     }
 }
 
 function gerarNumeroAleatorio() {
     // Através do return, esse valor vai ser atribuído para a variável gerarNumeroAleatorio.
     return parseInt(Math.random() * 10 + 1);
+}
+
+function limparCampo(){
+    chute = document.querySelector('input');
+    chute.value = '';
+}
+
+function reiniciarJogo(){
+    iniciarJogo();
+    exibirMensagemInicial();
+    limparCampo();
+    document.getElementById('reiniciar').setAttribute('disabled', true);
 }
