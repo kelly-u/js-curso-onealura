@@ -12,6 +12,10 @@ paragrafo.innerHTML = 'Escolha um número entre 1 e 10';
 */
 
 //Aqui as funções são até mais fáceis. Nem preciso informar o tipo do parâmetro
+
+let numeroSecreto = gerarNumeroAleatorio();
+console.log(numeroSecreto);
+
 function alterarTexto(tag, texto){
     let campo = document.querySelector(tag);
     campo.innerHTML = texto;
@@ -21,5 +25,12 @@ alterarTexto('h1', 'Jogo do número secreto');
 alterarTexto('p', 'Escolha um número entre 1 e 10');
 
 function verificarChute(){
-    console.log("O botão foi clicado!");
+    //value = serve para pegar o valor daquele input.
+    let chute = document.querySelector('input').value;
+    console.log(chute == numeroSecreto);
+}
+
+function gerarNumeroAleatorio() {
+    // Através do return, esse valor vai ser atribuído para a variável gerarNumeroAleatorio.
+    return parseInt(Math.random() * 10 + 1);
 }
